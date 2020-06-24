@@ -1,3 +1,5 @@
+import { STREAM_DATA_RATE_MILISECONDS } from './../config'
+
 export const parseData = (data: string): string[] => data.split('\n').filter(Boolean)
 
 export const simulateDataStream = ({ data, streamer }) => {
@@ -7,6 +9,6 @@ export const simulateDataStream = ({ data, streamer }) => {
 
 			const isEndOfStream = i === array.length - 1
 			if (isEndOfStream) streamer.end()
-		}, i * 1000)
+		}, i * STREAM_DATA_RATE_MILISECONDS)
 	})
 }
