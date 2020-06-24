@@ -10,4 +10,6 @@ An app to alert / display changes in forex spot prices
 
 ## High Level Design Thoughts
 
-## Assumptions on Input data
+## Assumptions
+
+1. The definition of a "5 minute average" is based on a simple moving average calculation where we take an average of the rates for the last 5 minutes/300 seconds at every second of streamed data received.
