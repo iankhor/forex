@@ -1,24 +1,14 @@
-import run, { DOWN, ENTER } from 'inquirer-test'
-
-const SPACEBAR = '\x20'
+import run from 'inquirer-test'
 
 // This spec requires a rerun of jest as it relies on node and the latest compiled run.js
 const runPath = `${process.cwd()}/build/run.js`
-const mockTournamentFilePath = `${process.cwd()}/testlib/fixtures/mock_tournament.txt`
 
 test('the app runs', async () => {
-	const result = await run([runPath, mockTournamentFilePath], [DOWN])
+	// extended jest's default timeout as the simulated data streams at 1 second per data point
+	jest.setTimeout(10000)
 
-	expect(result).toMatch(new RegExp('Query Match', 'g'))
-})
+	const mockDataStream = `${process.cwd()}/testlib/fixtures/mock_stream_short.jsonl`
+	const result = await run([runPath, mockDataStream], [])
 
-test('getting the match result and games won and loss in tournament', async () => {
-	const result = await run(
-		[runPath, `${process.cwd()}/testlib/fixtures/mock_tournament.txt`],
-		[SPACEBAR, ENTER, DOWN, SPACEBAR, ENTER]
-	)
-
-	expect(result).toMatch(new RegExp('Person X defeated Person Y', 'g'))
-	expect(result).toMatch(new RegExp('2 sets to 1', 'g'))
-	expect(result).toMatch(new RegExp('Person X Games Stats: Won - 12, Lost - 6', 'g'))
+	expect(result).toMatch(new RegExp('Start of simulated stream', 'g'))
 })
