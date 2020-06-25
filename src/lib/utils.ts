@@ -12,3 +12,9 @@ export const simulateDataStream = ({ data, streamer }) => {
 		}, i * STREAM_DATA_RATE_MILISECONDS)
 	})
 }
+
+export const displayMessage = (data, message = {}) => {
+	const { rate, ...timeStampAndCurrencyPair } = data
+
+	console.info({ ...timeStampAndCurrencyPair, ...message })
+}
