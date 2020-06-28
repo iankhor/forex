@@ -9,9 +9,10 @@ export const processDataStream = (data, currencyPairs): void => {
 	currencyPairs.track(data.currencyPair)
 
 	const rate = currencyPairs.find(data.currencyPair)
-	const { record, currentTrend, trendDuration, isSpotChangeAlert, isTrendAlert } = rate as Rate
+	rate.record(data.rate)
 
-	record(data.rate)
+	const { currentTrend, trendDuration, isSpotChangeAlert, isTrendAlert } = rate as Rate
+
 	isSpotChangeAlert() && displayMessage(data, { alert: 'spotChange' })
 	isTrendAlert() && displayMessage(data, { alert: currentTrend(), seconds: trendDuration })
 }

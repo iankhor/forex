@@ -13,7 +13,7 @@ export default class Rate {
 		this.currencyPair = currencyPair
 	}
 
-	trendDuration: number = 0
+	trendDuration: number = 0 //TODO: convet to a function so we can ask the latest data
 	currencyPair: string = ''
 
 	#spotChangePercentageAlert: number
@@ -39,6 +39,7 @@ export default class Rate {
 		return changePercent > this.#spotChangePercentageAlert && this.#history.length > this.#averagePeriod
 	}
 
+	// TODO: should be !(this.history % this.#trendAlertPeriod)
 	isTrendAlert = (): boolean => this.currentTrend() !== 'unchanged' && !(this.trendDuration % this.#trendAlertPeriod)
 
 	// private instance fields

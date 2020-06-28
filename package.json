@@ -7,7 +7,7 @@
 		"start:build": "tsc -w",
 		"start:run": "nodemon ./build/run.js",
 		"start": "concurrently npm:start:*",
-		"test": "jest --testPathIgnorePatterns=feature.test --watchAll --verbose",
+		"test": "jest --testPathIgnorePatterns=feature.test --watchAll --verbose --coverage",
 		"test:feature": "tsc && jest --verbose --testPathPattern=\".*.feature.test.ts\""
 	},
 	"devDependencies": {
