@@ -22,9 +22,7 @@ export default class Rate {
 		this.#recordTrend(previousRate, currentRate)
 	}
 
-	average = (): number | null => {
-		return this.#suffientRatesToAverage() ? this.#sumOfRecentPeriod() / this.#averagePeriod : null
-	}
+	average = (): number => (this.#suffientRatesToAverage() ? this.#sumOfRecentPeriod() / this.#averagePeriod : 0)
 
 	currentTrend = () => (this.#isTrending() ? this.#currentTrends()[0] : null)
 
