@@ -1,14 +1,22 @@
 export default class Rate {
-	constructor({ averagePeriod = 1, trendDurationThreshold = 300, trendAlertPeriod = 60, currencyPair = '' } = {}) {
+	constructor({
+		averagePeriod = 1,
+		trendDurationThreshold = 300,
+		trendAlertPeriod = 60,
+		currencyPair = '',
+		spotChangePercentageAlert = 10,
+	} = {}) {
 		this.#averagePeriod = averagePeriod
 		this.#trendDurationThreshold = trendDurationThreshold
 		this.#trendAlertPeriod = trendAlertPeriod
+		this.#spotChangePercentageAlert = spotChangePercentageAlert
 		this.currencyPair = currencyPair
 	}
 
 	trendDuration: number = 0
 	currencyPair: string = ''
 
+	#spotChangePercentageAlert: number
 	#averagePeriod: number
 	#history: number[] = []
 	#trendDurationThreshold: number
@@ -22,21 +30,20 @@ export default class Rate {
 		this.#recordTrend(previousRate, currentRate)
 	}
 
-	average = (): number => (this.#suffientRatesToAverage() ? this.#sumOfRecentPeriod() / this.#averagePeriod : 0)
-
 	currentTrend = () => (this.#isTrending() ? this.#currentTrends()[0] : null)
 
 	isSpotChangeAlert = (): boolean => {
 		const currentRate = this.#history[this.#history.length - 1]
-		const changePercent = Math.abs(currentRate / this.average() - 1) * 100
+		const changePercent = Math.abs(currentRate / this.#average() - 1) * 100
 
-		return changePercent > 10 && this.#history.length > this.#averagePeriod
+		return changePercent > this.#spotChangePercentageAlert && this.#history.length > this.#averagePeriod
 	}
 
-	isTrendAlert = (): boolean =>
-		this.#isTrending() && !(this.trendDuration % this.#trendAlertPeriod) && this.currentTrend() !== 'unchanged'
+	isTrendAlert = (): boolean => this.currentTrend() !== 'unchanged' && !(this.trendDuration % this.#trendAlertPeriod)
 
 	// private instance fields
+
+	#average = (): number => (this.#suffientRatesToAverage() ? this.#sumOfRecentPeriod() / this.#averagePeriod : 0)
 
 	#currentTrends = () => [...new Set(this.#recentTrendRange())]
 
