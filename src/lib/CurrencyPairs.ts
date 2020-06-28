@@ -14,15 +14,15 @@ const rateConfig = {
 }
 
 export default class CurrencyPairs {
-	#tracked: Rate[] = []
+	tracked: Rate[] = []
 
 	track = (currencyPair) => {
 		if (this.#isTracked(currencyPair)) return
 
-		this.#tracked = [...this.#tracked, new Rate({ ...rateConfig, currencyPair })]
+		this.tracked = [...this.tracked, new Rate({ ...rateConfig, currencyPair })]
 	}
 
-	find = (currencyPair) => this.#tracked.find((cp) => cp.currencyPair === currencyPair)
+	find = (currencyPair) => this.tracked.find((cp) => cp.currencyPair === currencyPair)
 
-	#isTracked = (currencyPair) => this.#tracked.some((cp) => cp.currencyPair === currencyPair)
+	#isTracked = (currencyPair) => this.tracked.some((cp) => cp.currencyPair === currencyPair)
 }
