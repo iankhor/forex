@@ -1,10 +1,17 @@
+import {
+	AVERAGE_PERIOD_SECONDS,
+	TREND_DURATION_THRESHOLD_SECONDS,
+	TREND_ALERT_FREQUENCY_SECONDS,
+	SPOT_CHANGE_ALERT_THRESHOLD_PERCENTAGE,
+} from './../config'
+
 export default class Rate {
 	constructor({
-		averagePeriod = 1,
-		trendDurationThreshold = 300,
-		trendAlertFrequency = 60,
+		averagePeriod = AVERAGE_PERIOD_SECONDS,
+		trendDurationThreshold = TREND_DURATION_THRESHOLD_SECONDS,
+		trendAlertFrequency = TREND_ALERT_FREQUENCY_SECONDS,
 		currencyPair = '',
-		spotChangePercentageAlert = 10,
+		spotChangePercentageAlert = SPOT_CHANGE_ALERT_THRESHOLD_PERCENTAGE,
 	} = {}) {
 		this.#averagePeriod = averagePeriod
 		this.#trendDurationThreshold = trendDurationThreshold
@@ -13,7 +20,7 @@ export default class Rate {
 		this.currencyPair = currencyPair
 	}
 
-	trendDuration: number = 0 //TODO: convet to a function so we can ask the latest data
+	trendDuration: number = 0
 	currencyPair: string = ''
 
 	#spotChangePercentageAlert: number
@@ -30,32 +37,34 @@ export default class Rate {
 		this.#recordTrend(previousRate, currentRate)
 	}
 
-	currentTrend = () => (this.#isTrending() ? this.#currentTrends()[0] : null)
+	currentTrend = (): string | null => (this.#isTrending() ? this.#currentTrends()[0] : null)
 
 	isSpotChangeAlert = (): boolean => {
 		const currentRate = this.#history[this.#history.length - 1]
 		const changePercent = Math.abs(currentRate / this.#average() - 1) * 100
 
-		return changePercent > this.#spotChangePercentageAlert && this.#history.length > this.#averagePeriod
+		return changePercent > this.#spotChangePercentageAlert && this.#suffientRatesToAverage()
 	}
 
-	// TODO: should be !(this.history % this.#trendAlertFrequency)
 	isTrendAlert = (): boolean => this.currentTrend() !== 'unchanged' && !(this.trendDuration % this.#trendAlertFrequency)
 
 	// private instance fields
 
 	#average = (): number => (this.#suffientRatesToAverage() ? this.#sumOfRecentPeriod() / this.#averagePeriod : 0)
 
-	#currentTrends = () => [...new Set(this.#recentTrendRange())]
+	#currentTrends = (): string[] => [...new Set(this.#recentTrendRange())]
 
-	#recentTrendRange = () => {
-		const recentTrend = this.#trends.slice(this.#trends.length - this.#trendDurationThreshold)
-		return this.#trends.slice(this.#trends.length - this.#trendDurationThreshold)
+	#recentTrendRange = (): string[] => {
+		const recentTrends = this.#trends.slice(this.#trends.length - this.#trendDurationThreshold)
+
+		return recentTrends
 	}
 
-	#resetTrendDuration = () => (this.trendDuration = 1)
+	#resetTrendDuration = (): void => {
+		this.trendDuration = 1
+	}
 
-	#recordTrendDuration = () => {
+	#recordTrendDuration = (): void => {
 		const currentTrend = this.#trends[this.#trends.length - 1]
 		const previousTrend = this.#trends[this.#trends.length - 2]
 
@@ -88,5 +97,5 @@ export default class Rate {
 	#sumOfRecentPeriod = (): number =>
 		this.#recentPeriod().reduce((accumulator, currentData) => accumulator + currentData)
 
-	#isTrending = () => (this.#currentTrends().length === 1 ? true : false)
+	#isTrending = (): boolean => (this.#currentTrends().length === 1 ? true : false)
 }

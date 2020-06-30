@@ -23,7 +23,7 @@ export const setupDataStreamer = ({ currencyPairs }: DataStreamerProps): void =>
 	const streamer = jsonLines.parse()
 
 	console.info('Start of simulated stream')
-	streamer.on('data', (data) => processDataStream(data, currencyPairs))
+	streamer.on('data', (data: Data) => processDataStream(data, currencyPairs))
 	streamer.on('end', () => console.info('End of simulated stream'))
 
 	return streamer

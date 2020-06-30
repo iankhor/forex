@@ -18,6 +18,10 @@ An app to alert / display changes in forex spot prices
 1. The definition of a "5 minute average" is based on a simple moving average calculation where we take an average of the rates for the last 5 minutes/300 seconds at every second of streamed data received.
 2. Streaming data comes in sequentially
 
+## Other Notes
+
+1. Utility functions to "simulate" the flow of data is not tested as its just for demonstration purposes (ie: src/lib/utils.ts)
+
 ## TODO
 
 - read streams of different currency pairs which comes in at the same time, maybe a class to keep track of what has came in ?

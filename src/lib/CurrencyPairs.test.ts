@@ -1,10 +1,11 @@
 import CurrencyPairs from './CurrencyPairs'
 import Rate from './Rate'
+import { rateConfig } from './../config'
 
 describe('CurrencyPair', () => {
 	describe('track', () => {
 		it('tracks currency pairs', () => {
-			const currencyPair = new CurrencyPairs({ rateConfig: {} })
+			const currencyPair = new CurrencyPairs({ rateConfig })
 
 			currencyPair.track('ABCPQR')
 			currencyPair.track('XYZ123')
@@ -16,7 +17,7 @@ describe('CurrencyPair', () => {
 		})
 
 		it('does not duplicate its tracking for existing currency pair', () => {
-			const currencyPair = new CurrencyPairs({ rateConfig: {} })
+			const currencyPair = new CurrencyPairs({ rateConfig })
 
 			currencyPair.track('ABCPQR')
 			currencyPair.track('ABCPQR')
@@ -30,7 +31,7 @@ describe('CurrencyPair', () => {
 
 	describe('find', () => {
 		it('returns Rate instance of desired currency pair', () => {
-			const currencyPair = new CurrencyPairs({ rateConfig: {} })
+			const currencyPair = new CurrencyPairs({ rateConfig })
 
 			currencyPair.track('ABCPQR')
 			currencyPair.track('XYZ123')

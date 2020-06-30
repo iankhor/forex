@@ -1,11 +1,13 @@
 import { STREAM_DATA_RATE_MILISECONDS } from './../config'
 
+import { Data } from './types'
+
 export const parseData = (data: string): string[] => data.split('\n').filter(Boolean)
 
-export const simulateDataStream = ({ data, streamer }) => {
-	data.forEach((data, i, array) => {
+export const simulateDataStream = ({ data, streamer }: { data: string[]; streamer: any }): void => {
+	data.forEach((d, i, array) => {
 		setTimeout(() => {
-			streamer.write(`${data}\n`)
+			streamer.write(`${d}\n`)
 
 			const isEndOfStream = i === array.length - 1
 			if (isEndOfStream) streamer.end()
@@ -13,7 +15,7 @@ export const simulateDataStream = ({ data, streamer }) => {
 	})
 }
 
-export const displayMessage = (data, message = {}) => {
+export const displayMessage = (data: Data, message = {}): void => {
 	const { rate, ...timeStampAndCurrencyPair } = data
 
 	console.info({ ...timeStampAndCurrencyPair, ...message })
