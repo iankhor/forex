@@ -34,7 +34,7 @@ describe('processDataStream', () => {
 				testConfig: { spotChangePercentageAlert: 2 },
 			})
 
-			const mockCurrentData = { rate: 5, currencyPair: 'ABCPQR' }
+			const mockCurrentData = { timestamp: 123, rate: 5, currencyPair: 'ABCPQR' }
 			processDataStream(mockCurrentData, currencyPair)
 
 			expect(mockDisplayMessage).toHaveBeenCalledWith(mockCurrentData, { alert: 'spotChange' })
@@ -45,7 +45,7 @@ describe('processDataStream', () => {
 				testConfig: { spotChangePercentageAlert: 200 },
 			})
 
-			const mockCurrentData = { rate: 5, currencyPair: 'ABCPQR' }
+			const mockCurrentData = { timestamp: 123, rate: 5, currencyPair: 'ABCPQR' }
 			processDataStream(mockCurrentData, currencyPair)
 
 			expect(mockDisplayMessage).not.toHaveBeenCalledWith(mockCurrentData, { alert: 'spotChange' })
@@ -58,7 +58,7 @@ describe('processDataStream', () => {
 				testConfig: { trendDurationThreshold: 5 },
 			})
 
-			const mockCurrentData = { rate: 5, currencyPair: 'ABCPQR' }
+			const mockCurrentData = { timestamp: 123, rate: 5, currencyPair: 'ABCPQR' }
 			processDataStream(mockCurrentData, currencyPair)
 
 			expect(mockDisplayMessage).toHaveBeenCalledWith(mockCurrentData, { alert: 'rising', seconds: 2 })
@@ -69,7 +69,7 @@ describe('processDataStream', () => {
 				testConfig: { trendDurationThreshold: 900 },
 			})
 
-			const mockCurrentData = { rate: 5, currencyPair: 'ABCPQR' }
+			const mockCurrentData = { timestamp: 123, rate: 5, currencyPair: 'ABCPQR' }
 			processDataStream(mockCurrentData, currencyPair)
 
 			expect(mockDisplayMessage).not.toHaveBeenCalledWith(mockCurrentData, { alert: 'rising', seconds: 2 })
@@ -81,7 +81,7 @@ describe('processDataStream', () => {
 					testConfig: { trendAlertFrequency: 2 },
 				})
 
-				const mockCurrentData = { rate: 5, currencyPair: 'ABCPQR' }
+				const mockCurrentData = { timestamp: 123, rate: 5, currencyPair: 'ABCPQR' }
 				processDataStream(mockCurrentData, currencyPair)
 
 				expect(mockDisplayMessage).toHaveBeenCalledWith(mockCurrentData, { alert: 'rising', seconds: 2 })
@@ -92,7 +92,7 @@ describe('processDataStream', () => {
 					testConfig: { trendAlertFrequency: 900 },
 				})
 
-				const mockCurrentData = { rate: 5, currencyPair: 'ABCPQR' }
+				const mockCurrentData = { timestamp: 123, rate: 5, currencyPair: 'ABCPQR' }
 				processDataStream(mockCurrentData, currencyPair)
 
 				expect(mockDisplayMessage).not.toHaveBeenCalledWith(mockCurrentData, { alert: 'rising', seconds: 2 })
