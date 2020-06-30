@@ -114,18 +114,18 @@ describe('Rates', () => {
 		})
 
 		it('is true is it trend is rising', () => {
-			const rate = new Rate({ trendDurationThreshold: 2, trendAlertFrequency: 1 })
+			const rate = new Rate({ trendDurationThreshold: 3, trendAlertFrequency: 1 })
 
-			const mockDataStream = [{ rate: 1 }, { rate: 2 }]
+			const mockDataStream = [{ rate: 1 }, { rate: 2 }, { rate: 3 }, { rate: 4 }]
 			mockDataStream.forEach((d) => rate.record(d.rate))
 
 			expect(rate.isTrendAlert()).toEqual(true)
 		})
 
 		it('is true is it trend is falling', () => {
-			const rate = new Rate({ trendDurationThreshold: 2, trendAlertFrequency: 1 })
+			const rate = new Rate({ trendDurationThreshold: 3, trendAlertFrequency: 1 })
 
-			const mockDataStream = [{ rate: 5 }, { rate: 1 }]
+			const mockDataStream = [{ rate: 5 }, { rate: 4 }, { rate: 3 }, { rate: 2 }]
 			mockDataStream.forEach((d) => rate.record(d.rate))
 
 			expect(rate.isTrendAlert()).toEqual(true)

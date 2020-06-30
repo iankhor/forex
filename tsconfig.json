@@ -12,5 +12,6 @@
 		"downlevelIteration": true,
 		"baseUrl": "./"
 	},
+	"include": ["src/**/*"],
 	"exclude": ["node_modules", "./src/**/*.test.ts", "./src/**/*.test.tsx", "testlib", "jest.config.js", "build"]
 }

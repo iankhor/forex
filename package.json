@@ -4,9 +4,7 @@
 	"main": "run.js",
 	"license": "MIT",
 	"scripts": {
-		"start:build": "tsc -w",
-		"start:run": "nodemon ./build/run.js",
-		"start": "concurrently npm:start:*",
+		"start": "tsc && node ./build/run.js",
 		"test": "jest --testPathIgnorePatterns=feature.test --watchAll --verbose --coverage",
 		"test:feature": "tsc && jest --verbose --testPathPattern=\".*.feature.test.ts\""
 	},

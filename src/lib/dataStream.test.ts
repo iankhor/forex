@@ -55,7 +55,7 @@ describe('processDataStream', () => {
 	describe('trend alert', () => {
 		it('triggers alerts when price is trending', () => {
 			const currencyPair = setupTest({
-				testConfig: { trendDurationThreshold: 5 },
+				testConfig: { trendDurationThreshold: 2 },
 			})
 
 			const mockCurrentData = { timestamp: 123, rate: 5, currencyPair: 'ABCPQR' }

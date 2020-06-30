@@ -46,7 +46,10 @@ export default class Rate {
 		return changePercent > this.#spotChangePercentageAlert && this.#suffientRatesToAverage()
 	}
 
-	isTrendAlert = (): boolean => this.currentTrend() !== 'unchanged' && !(this.trendDuration % this.#trendAlertFrequency)
+	isTrendAlert = (): boolean =>
+		this.currentTrend() !== 'unchanged' &&
+		!(this.trendDuration % this.#trendAlertFrequency) &&
+		this.trendDuration >= this.#trendDurationThreshold
 
 	// private instance fields
 
