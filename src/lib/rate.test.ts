@@ -114,7 +114,7 @@ describe('Rates', () => {
 		})
 
 		it('is true is it trend is rising', () => {
-			const rate = new Rate({ trendDurationThreshold: 2, trendAlertPeriod: 1 })
+			const rate = new Rate({ trendDurationThreshold: 2, trendAlertFrequency: 1 })
 
 			const mockDataStream = [{ rate: 1 }, { rate: 2 }]
 			mockDataStream.forEach((d) => rate.record(d.rate))
@@ -123,7 +123,7 @@ describe('Rates', () => {
 		})
 
 		it('is true is it trend is falling', () => {
-			const rate = new Rate({ trendDurationThreshold: 2, trendAlertPeriod: 1 })
+			const rate = new Rate({ trendDurationThreshold: 2, trendAlertFrequency: 1 })
 
 			const mockDataStream = [{ rate: 5 }, { rate: 1 }]
 			mockDataStream.forEach((d) => rate.record(d.rate))
@@ -132,7 +132,7 @@ describe('Rates', () => {
 		})
 
 		it('is true alert period is a multiple of the trend duration', () => {
-			const rate = new Rate({ trendDurationThreshold: 2, trendAlertPeriod: 2 })
+			const rate = new Rate({ trendDurationThreshold: 2, trendAlertFrequency: 2 })
 
 			const mockDataStream = [{ rate: 5 }, { rate: 1 }, { rate: 0 }]
 			mockDataStream.forEach((d) => rate.record(d.rate))
@@ -141,7 +141,7 @@ describe('Rates', () => {
 		})
 
 		it('is false alert period is NOT a multiple of the trend duration', () => {
-			const rate = new Rate({ trendDurationThreshold: 2, trendAlertPeriod: 3 })
+			const rate = new Rate({ trendDurationThreshold: 2, trendAlertFrequency: 3 })
 
 			const mockDataStream = [{ rate: 5 }, { rate: 1 }, { rate: 0 }]
 			mockDataStream.forEach((d) => rate.record(d.rate))

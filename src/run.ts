@@ -3,8 +3,8 @@ import fs from 'fs'
 import {
 	DEFAULT_DATA_FILE_PATH,
 	AVERAGE_PERIOD_SECONDS,
-	TREND_DURATION_THRESHOLD,
-	TREND_ALERT_PERIOD,
+	TREND_DURATION_THRESHOLD_SECONDS,
+	TREND_ALERT_FREQUENCY_SECONDS,
 	SPOT_CHANGE_ALERT_THRESHOLD_PERCENTAGE,
 } from './config'
 import CurrencyPairs from './lib/CurrencyPairs'
@@ -13,8 +13,8 @@ import { setupDataStreamer } from './lib/dataStream'
 
 const rateConfig = {
 	averagePeriod: AVERAGE_PERIOD_SECONDS,
-	trendDurationThreshold: TREND_DURATION_THRESHOLD,
-	trendAlertPeriod: TREND_ALERT_PERIOD,
+	trendDurationThreshold: TREND_DURATION_THRESHOLD_SECONDS,
+	trendAlertFrequency: TREND_ALERT_FREQUENCY_SECONDS,
 	spotChangePercentageAlert: SPOT_CHANGE_ALERT_THRESHOLD_PERCENTAGE,
 }
 

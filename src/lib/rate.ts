@@ -2,13 +2,13 @@ export default class Rate {
 	constructor({
 		averagePeriod = 1,
 		trendDurationThreshold = 300,
-		trendAlertPeriod = 60,
+		trendAlertFrequency = 60,
 		currencyPair = '',
 		spotChangePercentageAlert = 10,
 	} = {}) {
 		this.#averagePeriod = averagePeriod
 		this.#trendDurationThreshold = trendDurationThreshold
-		this.#trendAlertPeriod = trendAlertPeriod
+		this.#trendAlertFrequency = trendAlertFrequency
 		this.#spotChangePercentageAlert = spotChangePercentageAlert
 		this.currencyPair = currencyPair
 	}
@@ -20,7 +20,7 @@ export default class Rate {
 	#averagePeriod: number
 	#history: number[] = []
 	#trendDurationThreshold: number
-	#trendAlertPeriod: number
+	#trendAlertFrequency: number
 	#trends: string[] = []
 
 	record = (currentRate: number): void => {
@@ -39,8 +39,8 @@ export default class Rate {
 		return changePercent > this.#spotChangePercentageAlert && this.#history.length > this.#averagePeriod
 	}
 
-	// TODO: should be !(this.history % this.#trendAlertPeriod)
-	isTrendAlert = (): boolean => this.currentTrend() !== 'unchanged' && !(this.trendDuration % this.#trendAlertPeriod)
+	// TODO: should be !(this.history % this.#trendAlertFrequency)
+	isTrendAlert = (): boolean => this.currentTrend() !== 'unchanged' && !(this.trendDuration % this.#trendAlertFrequency)
 
 	// private instance fields
 
