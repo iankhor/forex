@@ -4,14 +4,43 @@ An app to alert / display changes in forex spot prices
 
 ## Demo
 
+Spot Change
+
+---
+
+![](/docs/spot.gif)
+
+Rising Rates
+
+---
+
+![](/docs/rising.gif)
+
 ## Instructions
+
+To run app:
+
+1. run `yarn start`
+2. (optional) To run with your own input file, run `yarn start [PATH TO DATA FILE]`
+
+```
+Example:
+
+yarn start `pwd`/data/myinput2_spot_change.jsonl
+yarn start `pwd`/data/myinput3_trend_rising.jsonl
+```
+
+To run test:
+
+1. run `yarn test`
 
 ## Brief
 
-## High Level Design Thoughts
+Implementation details:
 
-1. Calculate 5 min average and trend for one currency pair
-2. Scale implementation to calculate multiple currency pairs in data stream
+1. Calculate 5 min average, trends (rising/falling), alerting methods when thresholds are triggered for _one_ currency pair (ie: src/lib/Rate.ts)
+2. Scale implementation to handle _multiple_ currency pairs in data stream (ie: src/lib/CurrencyPairs.ts)
+3. Simulate data stream to appear sequentially to app (ie: src/run.ts)
 
 ## Assumptions
 
@@ -21,11 +50,3 @@ An app to alert / display changes in forex spot prices
 ## Other Notes
 
 1. Utility functions to "simulate" the flow of data is not tested as its just for demonstration purposes (ie: src/lib/utils.ts)
-
-## TODO
-
-- read streams of different currency pairs which comes in at the same time, maybe a class to keep track of what has came in ?
-
-- CurrencyPairTracker
-- Trend
-- Rates

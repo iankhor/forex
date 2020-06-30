@@ -4,7 +4,7 @@ import path from 'path'
  * Constants for app
  */
 
-export const STREAM_DATA_RATE_MILISECONDS = 0
+export const STREAM_DATA_RATE_MILISECONDS = 50
 export const SPOT_CHANGE_ALERT_THRESHOLD_PERCENTAGE = 10
 export const TREND_DURATION_THRESHOLD_SECONDS = 900 // 15 minutes
 export const TREND_ALERT_FREQUENCY_SECONDS = 60 // 1 minute
