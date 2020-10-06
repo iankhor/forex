@@ -1,4 +1,4 @@
-# Airwallex coding challenge
+# A**W***** coding challenge
 
 The aim of this exercise is to implement an "alerting" service which
 will consume a file of currency conversion rates and
